@@ -1,0 +1,118 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* עיצוב אזור הכנסת הכספים */
+.income-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.income-section h2 {
+  text-align: center;
+  color: #333;
+}
+
+.income-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* רווח אחיד בין השורות */
+  padding: 10px;
+  width: 100%; /* וודא שהקונטיינר תופס את כל רוחב המסך */
+  align-items: flex-start; /* ישור התוכן להתחיל מאותו הקו */
+}
+
+.income-inputs label {
+  display: flex;
+  flex-direction: row; /* שינוי לעיצוב בשורה */
+  align-items: center; /* מיקום הסימן ₪ לצד השדה */
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+  text-align: right; /* טקסט מימין לשמאל */
+}
+
+.income-inputs input {
+  width: 100%; 
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: right;
+  font-size: 16px;
+  background-color: #fff;
+}
+
+.income-inputs span {
+  margin-right: 10px; /* רווח בין תיבת הקלט לסימן ₪ */
+  font-size: 16px;
+}
+
+/* אפקט hover לתיבות הטקסט */
+.income-inputs input:hover {
+  border-color: #007bff;
+}
+
+/* עיצוב כפתור התחברות */
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.total-income {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #2e7d32;
+}
