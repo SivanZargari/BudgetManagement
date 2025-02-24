@@ -154,5 +154,83 @@ button.logout:hover {
 .navbar a:hover {
   background-color: #555;
 }
+/* עיצוב אזור הוצאות החודשיות */
+.expense-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.expense-section h2 {
+  text-align: center;
+  color: #333;
+}
+
+.expense-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.expense-inputs label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+  text-align: right;
+}
+
+.expense-inputs input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: right;
+  font-size: 16px;
+  background-color: #fff;
+}
+
+.expense-inputs span {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+/* אפקט hover לתיבות הטקסט */
+.expense-inputs input:hover {
+  border-color: #007bff;
+}
+
+.total-expense {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #e53935;
+}
+
+/* כפתור הוספת הוצאה */
+.add-expense-button {
+  background-color: orange; /* צבע כתום */
+  color: white; /* טקסט בצבע לבן */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.add-expense-button:hover {
+  background-color: darkorange; /* גוון כהה יותר של כתום בהובר */}
 
 
