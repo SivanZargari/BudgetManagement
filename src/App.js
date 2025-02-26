@@ -40,6 +40,56 @@ function App() {
     furnitureElectronics: '',
   });
 
+  const [livingExpenses, setLivingExpenses] = useState({
+    supermarket: '',
+    foodWorkStudy: '',
+    nationalInsurance: '',
+    medicalEquipment: '',
+    healthInsurance: '',
+    privateHealthInsurance: '',
+    dentalTreatment: '',
+    lifeInsurance: '',
+    contactLenses: '',
+    nursingInsurance: '',
+    professionalConsultation: '',
+    childcare: '',
+    schoolFees: '',
+    clothes: '',
+    toysBooks: '',
+    hobbies: '',
+    pocketMoney: '',
+    alimony: '',
+    cleaningServices: '',
+    petExpenses: '',
+    medicalCare: '',
+    petInsurance: ''
+  });
+
+  const [vehicleExpenses, setVehicleExpenses] = useState({
+    carInsurance: '',
+    carRental: '',
+    carMaintenance: '',
+    fuel: '',
+    parkingTollsFines: '',
+    publicTransport: '',
+    vehicleLicenseAndDriverLicense: '',
+    loanRepayment: '',
+  });
+
+  const [entertainmentExpenses, setEntertainmentExpenses] = useState({
+    culturalSportsEvents: '',
+    gymPoolSubscription: '',
+    newspapersMagazines: '',
+    hobbiesTrips: '',
+    diningOutRestaurants: '',
+    cigarettesAlcohol: '',
+    eventsGifts: '',
+    donations: '',
+    holidaysTrips: '',
+    holidayShopping: '',
+    travelInsurance: '',
+  });
+
   const [extraIncomeFields, setExtraIncomeFields] = useState([]);
   const [activePage, setActivePage] = useState('income'); // state to track active page
 
@@ -120,6 +170,53 @@ function App() {
     setExtraIncomeFields([...extraIncomeFields, '']);
   };
 
+  const handleLivingExpenseChange = (event) => {
+    if (!user) {
+      alert("יש להתחבר על מנת לבצע ניהול חכם של הכסף שלך");
+      return;
+    }
+
+    const { name, value } = event.target;
+    if (/^\d*$/.test(value)) {
+      setLivingExpenses((prevLivingExpenses) => ({
+        ...prevLivingExpenses,
+        [name]: value,
+      }));
+    }
+  };
+
+  // פונקציות עדכון שונות...
+  const handleVehicleExpenseChange = (event) => {
+    if (!user) {
+      alert("יש להתחבר על מנת לבצע ניהול חכם של הכסף שלך");
+      return;
+    }
+
+    const { name, value } = event.target;
+    if (/^\d*$/.test(value)) {
+      setVehicleExpenses((prevExpenses) => ({
+        ...prevExpenses,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleEntertainmentExpenseChange = (event) => {
+    if (!user) {
+      alert("יש להתחבר על מנת לבצע ניהול חכם של הכסף שלך");
+      return;
+    }
+
+    const { name, value } = event.target;
+    if (/^\d*$/.test(value)) {
+      setEntertainmentExpenses((prevEntertainmentExpenses) => ({
+        ...prevEntertainmentExpenses,
+        [name]: value,
+      }));
+    }
+  };
+
+
   const totalIncome = Object.values(income)
     .reduce((acc, curr) => acc + (parseInt(curr) || 0), 0) + extraIncomeFields.reduce((acc, curr) => acc + (parseInt(curr) || 0), 0);
 
@@ -127,6 +224,15 @@ function App() {
     .reduce((acc, curr) => acc + (parseInt(curr) || 0), 0) + extraIncomeFields.reduce((acc, curr) => acc + (parseInt(curr) || 0), 0);
 
   const totalHousingExpenses = Object.values(housingExpenses)
+    .reduce((acc, curr) => acc + (parseInt(curr) || 0), 0) + extraIncomeFields.reduce((acc, curr) => acc + (parseInt(curr) || 0), 0);
+
+  const totallivingExpenses = Object.values(livingExpenses)
+    .reduce((acc, curr) => acc + (parseInt(curr) || 0), 0) + extraIncomeFields.reduce((acc, curr) => acc + (parseInt(curr) || 0), 0);
+
+  const totalvehicleExpenses = Object.values(vehicleExpenses)
+    .reduce((acc, curr) => acc + (parseInt(curr) || 0), 0) + extraIncomeFields.reduce((acc, curr) => acc + (parseInt(curr) || 0), 0);
+
+  const totalEntertainmentExpenses = Object.values(entertainmentExpenses)
     .reduce((acc, curr) => acc + (parseInt(curr) || 0), 0) + extraIncomeFields.reduce((acc, curr) => acc + (parseInt(curr) || 0), 0);
 
   return (
@@ -151,8 +257,9 @@ function App() {
               <li><Link to="/" onClick={() => setActivePage('income')}>הכנסות חודשיות</Link></li>
               <li><Link to="/page2" onClick={() => setActivePage('page2')}>הוצאות ניהוליות </Link></li>
               <li><Link to="/page3" onClick={() => setActivePage('page3')}>הוצאות מגורים</Link></li>
-              <li><Link to="/page4" onClick={() => setActivePage('page4')}>עמוד 4</Link></li>
-              <li><Link to="/page5" onClick={() => setActivePage('page5')}>עמוד 5</Link></li>
+              <li><Link to="/page4" onClick={() => setActivePage('page4')}>הוצאות מחיה ותחזוקה שוטפת</Link></li>
+              <li><Link to="/page5" onClick={() => setActivePage('page5')}>הוצאות נסיעה ורכב</Link></li>
+              <li><Link to="/page5" onClick={() => setActivePage('page6')}>הוצאות פנאי ובילויים</Link></li>
             </ul>
           </nav>
 
@@ -233,7 +340,7 @@ function App() {
               </div>
 
               <div className="total-expenses">
-                <h3>סה"כ הוצאות: ₪{totalExpenses} </h3>
+                <h3>סה"כ הוצאות ניהוליות: ₪{totalExpenses} </h3>
               </div>
             </div>
           )}
@@ -320,10 +427,221 @@ function App() {
               </div>
 
               <div className="total-expenses">
-                <h3>סה"כ הוצאות: ₪{totalHousingExpenses}</h3>
+                <h3>סה"כ הוצאות מגורים: ₪{totalHousingExpenses}</h3>
               </div>
             </div>
           )}
+
+          {activePage === 'page4' && (
+            <div>
+              <h2>הוצאות מחיה ותחזוקה שוטפת</h2>
+              <h4> צרכים יומיומיים, בריאות, חינוך ותחזוקה אישית</h4>
+              <div className="expense-inputs">
+                <label>קניות בסופר, במכולת ובשוק:
+                  <input type="text" name="supermarket" value={livingExpenses.supermarket} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>אוכל בלימודים ובעבודה:
+                  <input type="text" name="foodWorkStudy" value={livingExpenses.foodWorkStudy} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>ביטוח לאומי ומס בריאות:
+                  <input type="text" name="nationalInsurance" value={livingExpenses.nationalInsurance} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>תרופות, יעוץ וציוד רפואי:
+                  <input type="text" name="medicalEquipment" value={livingExpenses.medicalEquipment} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>קופ"ח וביטוחים משלימים:
+                  <input type="text" name="healthInsurance" value={livingExpenses.healthInsurance} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>ביטוח בריאות פרטי:
+                  <input type="text" name="privateHealthInsurance" value={livingExpenses.privateHealthInsurance} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>טיפולי שיניים:
+                  <input type="text" name="dentalTreatment" value={livingExpenses.dentalTreatment} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>ביטוח חיים ואובדן כושר עבודה:
+                  <input type="text" name="lifeInsurance" value={livingExpenses.lifeInsurance} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>עדשות, חומרי ניקוי לעדשות ומשקפיים:
+                  <input type="text" name="contactLenses" value={livingExpenses.contactLenses} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>ביטוח סיעודי:
+                  <input type="text" name="nursingInsurance" value={livingExpenses.nursingInsurance} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>יעוץ מקצועי:
+                  <input type="text" name="professionalConsultation" value={livingExpenses.professionalConsultation} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>טיפול בילדים (מעון, גן, מטפלת, בייביסיטר וכו'):
+                  <input type="text" name="childcare" value={livingExpenses.childcare} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>שכר לימוד ביה"ס, הכשרה מקצועית או השכלה גבוהה:
+                  <input type="text" name="schoolFees" value={livingExpenses.schoolFees} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>בגדים, נעליים ואביזרי לבוש:
+                  <input type="text" name="clothes" value={livingExpenses.clothes} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>צעצועים וספרים:
+                  <input type="text" name="toysBooks" value={livingExpenses.toysBooks} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>חוגים, תנועת נוער, פעילויות וקייטנות:
+                  <input type="text" name="hobbies" value={livingExpenses.hobbies} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>דמי כיס:
+                  <input type="text" name="pocketMoney" value={livingExpenses.pocketMoney} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>תשלום דמי מזונות:
+                  <input type="text" name="alimony" value={livingExpenses.alimony} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>ביגוד, הנעלה ואביזרים:
+                  <input type="text" name="cleaningServices" value={livingExpenses.cleaningServices} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>תספורת:
+                  <input type="text" name="petExpenses" value={livingExpenses.petExpenses} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>טיפוח וקוסמטיקה:
+                  <input type="text" name="medicalCare" value={livingExpenses.medicalCare} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>מכבסה וניקוי יבש:
+                  <input type="text" name="petInsurance" value={livingExpenses.petInsurance} onChange={handleLivingExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+
+                {extraIncomeFields.map((value, index) => (
+                  <label key={index}>הוצאה נוספת כללית:
+                    <input type="text" value={value} onChange={(e) => handleExtraIncomeChange(index, e.target.value)} dir="rtl" />
+                    <span>₪</span>
+                  </label>
+                ))}
+
+                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף שורה חדשה</button>
+
+              </div>
+
+              <div className="total-expenses">
+                <h3>סה"כ הוצאות מחיה ותחזוקה שוטפת: ₪{totallivingExpenses}</h3>
+              </div>
+            </div>
+          )}
+
+          {activePage === 'page5' && (
+            <div>
+              <h2>הוצאות נסיעה ורכב</h2>
+              <h4>כלל העלויות הנלוות לניהול ותחזוקת הרכב</h4>
+              <div className="expense-inputs">
+                <label>ביטוח רכב:
+                  <input type="text" name="carInsurance" value={vehicleExpenses.carInsurance} onChange={handleVehicleExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>השכרת רכב:
+                  <input type="text" name="carRental" value={vehicleExpenses.carRental} onChange={handleVehicleExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>תחזוקה ותיקונים:
+                  <input type="text" name="carMaintenance" value={vehicleExpenses.carMaintenance} onChange={handleVehicleExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>דלק:
+                  <input type="text" name="fuel" value={vehicleExpenses.fuel} onChange={handleVehicleExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>חניה, אגרות נסיעה, קנסות ודוחות:
+                  <input type="text" name="parkingTollsFines" value={vehicleExpenses.parkingTollsFines} onChange={handleVehicleExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>תחבורה ציבורית:
+                  <input type="text" name="publicTransport" value={vehicleExpenses.publicTransport} onChange={handleVehicleExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>רישיון רכב (טסט) ונהיגה:
+                  <input type="text" name="vehicleLicenseAndDriverLicense" value={vehicleExpenses.vehicleLicenseAndDriverLicense} onChange={handleVehicleExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>החזר הלואות רכב:
+                  <input type="text" name="loanRepayment" value={vehicleExpenses.loanRepayment} onChange={handleVehicleExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+
+                {extraIncomeFields.map((value, index) => (
+                  <label key={index}>הוצאה נוספת כללית:
+                    <input type="text" value={value} onChange={(e) => handleExtraIncomeChange(index, e.target.value)} dir="rtl" />
+                    <span>₪</span>
+                  </label>
+                ))}
+
+                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף שורה חדשה</button>
+
+              </div>
+
+              <div className="total-expenses">
+                <h3>סה"כ הוצאות נסיעה ורכב: ₪{totalvehicleExpenses}</h3>
+              </div>
+            </div>
+          )}
+
+
+          {activePage === 'page6' && (
+            <div>
+              <h2>הוצאות פנאי ובילויים</h2>
+              <h4>הוצאות פנאי, בילויים ונופש – מהיומיום ועד לחופשות</h4>
+              <div className="expense-inputs">
+                <label>מופעי תרבות וספורט:
+                  <input type="text" name="culturalSportsEvents" value={entertainmentExpenses.culturalSportsEvents} onChange={handleEntertainmentExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>מנוי לחדר כושר ובריכה:
+                  <input type="text" name="gymPoolSubscription" value={entertainmentExpenses.gymPoolSubscription} onChange={handleEntertainmentExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>עיתונים ומגזינים:
+                  <input type="text" name="newspapersMagazines" value={entertainmentExpenses.newspapersMagazines} onChange={handleEntertainmentExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>תחביבים, טיולים - הורים וילדים:
+                  <input type="text" name="hobbiesTrips" value={entertainmentExpenses.hobbiesTrips} onChange={handleEntertainmentExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+                <label>בילויים, מסעדות, משלוחים ובתי קפה:
+                  <input type="text" name="diningOutRestaurants" value={entertainmentExpenses.diningOutRestaurants} onChange={handleEntertainmentExpenseChange} dir="rtl" />
+                  <span>₪</span>
+                </label>
+
+                {extraIncomeFields.map((value, index) => (
+                  <label key={index}>הוצאה נוספת כללית:
+                    <input type="text" value={value} onChange={(e) => handleExtraIncomeChange(index, e.target.value)} dir="rtl" />
+                    <span>₪</span>
+                  </label>
+                ))}
+
+                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף שורה חדשה</button>
+
+              </div>
+
+              <div className="total-expenses">
+                <h3>סה"כ הוצאות פנאי ובילויים: ₪{totalEntertainmentExpenses}</h3>
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
     </Router>
