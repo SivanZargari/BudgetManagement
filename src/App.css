@@ -22,24 +22,30 @@
 .income-inputs {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* רווח אחיד בין השורות */
+  gap: 20px;
+  /* רווח אחיד בין השורות */
   padding: 10px;
-  width: 100%; /* וודא שהקונטיינר תופס את כל רוחב המסך */
-  align-items: flex-start; /* ישור התוכן להתחיל מאותו הקו */
+  width: 100%;
+  /* וודא שהקונטיינר תופס את כל רוחב המסך */
+  align-items: flex-start;
+  /* ישור התוכן להתחיל מאותו הקו */
 }
 
 .income-inputs label {
   display: flex;
-  flex-direction: row; /* שינוי לעיצוב בשורה */
-  align-items: center; /* מיקום הסימן ₪ לצד השדה */
+  flex-direction: row;
+  /* שינוי לעיצוב בשורה */
+  align-items: center;
+  /* מיקום הסימן ₪ לצד השדה */
   font-size: 16px;
   font-weight: bold;
   color: #444;
-  text-align: right; /* טקסט מימין לשמאל */
+  text-align: right;
+  /* טקסט מימין לשמאל */
 }
 
 .income-inputs input {
-  width: 100%; 
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -49,7 +55,8 @@
 }
 
 .income-inputs span {
-  margin-right: 10px; /* רווח בין תיבת הקלט לסימן ₪ */
+  margin-right: 10px;
+  /* רווח בין תיבת הקלט לסימן ₪ */
   font-size: 16px;
 }
 
@@ -81,15 +88,19 @@ button:hover {
   margin-top: 10px;
   color: #2e7d32;
 }
+
 /* עיצוב כפתור התנתקות */
 button.logout {
-  background-color: #d32f2f; /* צבע אדום */
+  background-color: #d32f2f;
+  /* צבע אדום */
   color: white;
 }
 
 button.logout:hover {
-  background-color: #b71c1c; /* צבע אדום כהה בהובר */
+  background-color: #b71c1c;
+  /* צבע אדום כהה בהובר */
 }
+
 .text-block {
   background-color: #f8f9fa;
   padding: 20px;
@@ -100,6 +111,8 @@ button.logout:hover {
   font-family: 'Arial', sans-serif;
   text-align: center;
   color: #333;
+  text-align: center; /* Align text to the right */
+  direction: rtl; /* Right-to-left direction for Hebrew */
 }
 
 .text-block h2 {
@@ -112,9 +125,12 @@ button.logout:hover {
   line-height: 1.6;
   color: #555;
 }
+
 .add-income-button {
-  background-color: orange; /* צבע כתום */
-  color: white; /* טקסט בצבע לבן */
+  background-color: orange;
+  /* צבע כתום */
+  color: white;
+  /* טקסט בצבע לבן */
   padding: 10px 20px;
   font-size: 16px;
   border: none;
@@ -125,11 +141,18 @@ button.logout:hover {
 }
 
 .add-income-button:hover {
-  background-color: darkorange; /* גוון כהה יותר של כתום בהובר */
+  background-color: darkorange;
+  /* גוון כהה יותר של כתום בהובר */
 }
+
 .navbar {
-  background-color: #333;
-  padding: 10px;
+  background: transparent;
+  /* סרגל שקוף */
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  direction: rtl;
 }
 
 .navbar ul {
@@ -137,23 +160,65 @@ button.logout:hover {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: space-around;
+  gap: 15px;
+  /* ריווח בין הכפתורים */
 }
 
 .navbar li {
-  color: white;
-  font-size: 18px;
+  display: flex;
 }
 
+/* עיצוב הכפתורים */
 .navbar a {
-  color: white;
+  color: black;
+  /* צבע טקסט שחור */
   text-decoration: none;
-  padding: 10px;
+  font-size: 18px;
+  padding: 10px 20px;
+  border: 2px solid black;
+  /* מסגרת שחורה */
+  border-radius: 20px;
+  /* עיגול הקצוות כדי שייראה כמו בועה */
+  background: transparent;
+  /* רקע שקוף */
+  position: relative;
+  /* כדי למקם את הזנב */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: inline-block;
 }
 
-.navbar a:hover {
-  background-color: #555;
+/* יצירת הזנב של הבועה */
+.navbar a::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  /* ממקם את הזנב למטה */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid black;
+  /* צבע הזנב */
+  display: none;
+  /* מוסתר כברירת מחדל */
 }
+
+/* אפקט לחיצה */
+.navbar a:hover,
+.navbar a.active {
+  background-color: black;
+  color: white;
+}
+
+/* הצגת הזנב כאשר הכפתור פעיל או מרחפים מעליו */
+.navbar a:hover::after,
+.navbar a.active::after {
+  display: block;
+}
+
+
 /* עיצוב אזור הוצאות החודשיות */
 .expense-section {
   background-color: #f9f9f9;
@@ -219,8 +284,10 @@ button.logout:hover {
 
 /* כפתור הוספת הוצאה */
 .add-expense-button {
-  background-color: orange; /* צבע כתום */
-  color: white; /* טקסט בצבע לבן */
+  background-color: orange;
+  /* צבע כתום */
+  color: white;
+  /* טקסט בצבע לבן */
   padding: 10px 20px;
   font-size: 16px;
   border: none;
@@ -231,6 +298,59 @@ button.logout:hover {
 }
 
 .add-expense-button:hover {
-  background-color: darkorange; /* גוון כהה יותר של כתום בהובר */}
+  background-color: darkorange;
+  /* גוון כהה יותר של כתום בהובר */
+}
 
 
+/* Media Queries */
+@media (max-width: 768px) {
+
+  .income-section,
+  .expense-section {
+    width: 80%;
+  }
+
+  .income-inputs,
+  .expense-inputs {
+    width: 100%;
+  }
+
+  .income-inputs label,
+  .expense-inputs label {
+    flex-direction: column;
+    /* השורות תהפוכנה לעמודות */
+    text-align: left;
+    /* טקסט משמאל */
+  }
+
+  button,
+  .add-income-button,
+  .add-expense-button {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .income-section,
+  .expense-section {
+    width: 95%;
+  }
+
+  .income-inputs,
+  .expense-inputs {
+    flex-direction: column;
+  }
+
+  .income-inputs input,
+  .expense-inputs input {
+    font-size: 14px;
+  }
+
+  .income-inputs label,
+  .expense-inputs label {
+    font-size: 14px;
+  }
+}
