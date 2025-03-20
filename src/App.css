@@ -5,7 +5,7 @@
 /* עיצוב אזור הכנסת הכספים */
 .income-section {
   background-color: #f9f9f9;
-  padding: 20px;
+  padding: 40px;
   border-radius: 10px;
   margin-top: 20px;
   width: 50%;
@@ -171,20 +171,18 @@ button.logout:hover {
 /* עיצוב הכפתורים */
 .navbar a {
   color: black;
-  /* צבע טקסט שחור */
   text-decoration: none;
   font-size: 18px;
   padding: 10px 20px;
   border: 2px solid black;
-  /* מסגרת שחורה */
   border-radius: 20px;
-  /* עיגול הקצוות כדי שייראה כמו בועה */
   background: transparent;
-  /* רקע שקוף */
   position: relative;
   /* כדי למקם את הזנב */
   transition: background-color 0.3s ease, color 0.3s ease;
   display: inline-block;
+    word-wrap: break-word; /* מאפשר למילים להתפצל אם אין מספיק מקום */
+  white-space: normal; /* מאפשר למילים להתפצל */
 }
 
 /* יצירת הזנב של הבועה */
@@ -282,6 +280,33 @@ button.logout:hover {
   color: #e53935;
 }
 
+/* עיצוב עבור הצגת סך ההכנסות וסך ההוצאות אחד לצד השני */
+.totals {
+  display: flex;
+  justify-content: space-between; /* רווח בין העמודות */
+  gap: 20px; /* מרווח ביניהם */
+  margin-top: 20px;
+  align-items: center;
+}
+
+.total-income,
+.total-expenses {
+  flex: 1;
+  text-align: center;
+  font-size: 1.5rem; /* גודל טקסט זהה לשני */
+  font-weight: bold; /* משקל טקסט זהה לשני */
+}
+
+/* עיצוב סך ההכנסות */
+.total-income {
+  color: #2e7d32; /* צבע ירוק לסך ההכנסות */
+}
+
+/* עיצוב סך ההוצאות */
+.total-expenses {
+  color: #e53935; /* צבע אדום לסך ההוצאות */
+}
+
 /* כפתור הוספת הוצאה */
 .add-expense-button {
   background-color: orange;
@@ -354,3 +379,18 @@ button.logout:hover {
     font-size: 14px;
   }
 }
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.extra-income-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000; 
+  text-decoration: underline;
+  margin-bottom: 0px;
+  margin-top: 15px;
+}
+

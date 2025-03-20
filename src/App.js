@@ -216,6 +216,19 @@ function App() {
     }
   };
 
+  const isAnyFieldFilled = () => {
+    const fields = [
+      ...Object.values(income),
+      ...Object.values(expenses),
+      ...Object.values(housingExpenses),
+      ...Object.values(livingExpenses),
+      ...Object.values(vehicleExpenses),
+      ...Object.values(entertainmentExpenses),
+      ...extraIncomeFields
+    ];
+    return fields.some(field => field !== ''); // מחזיר true אם יש לפחות שדה אחד עם ערך
+  };
+
 
   const totalIncome = Object.values(income)
     .reduce((acc, curr) => acc + (parseInt(curr) || 0), 0) + extraIncomeFields.reduce((acc, curr) => acc + (parseInt(curr) || 0), 0);
@@ -242,15 +255,15 @@ function App() {
         <h3>!אל תיתן לכסף לנהל אותך – נהל אותו בעצמך</h3>
 
         <div className="text-block">
-  <p>
-    ניהול משק בית דומה לניהול עסק – <br />
-    כדי לשמור על איזון כלכלי, חשוב לדעת בדיוק מהן ההכנסות ומהן ההוצאות. <br />
-    שמירה על תקציב מסודר תסייע לכם להימנע מחובות והוצאות מיותרות, <br />
-    ותאפשר לכם לחסוך ולהגשים מטרות וחלומות. <br />
-    כמו בכל תחום בחיים, ברגע שמתחילים לנהל תקציב באופן עקבי, <br />
-    זה הופך להרגל חיובי שמוביל לשקט כלכלי. <br />
-  </p>
-</div>
+          <p>
+            ניהול משק בית דומה לניהול עסק – <br />
+            כדי לשמור על איזון כלכלי, חשוב לדעת בדיוק מהן ההכנסות ומהן ההוצאות. <br />
+            שמירה על תקציב מסודר תסייע לכם להימנע מחובות והוצאות מיותרות, <br />
+            ותאפשר לכם לחסוך ולהגשים מטרות וחלומות. <br />
+            כמו בכל תחום בחיים, ברגע שמתחילים לנהל תקציב באופן עקבי, <br />
+            זה הופך להרגל חיובי שמוביל לשקט כלכלי. <br />
+          </p>
+        </div>
 
 
         {user ? (
@@ -268,6 +281,7 @@ function App() {
               <li><Link to="/page4" onClick={() => setActivePage('page4')}>הוצאות מחיה ותחזוקה שוטפת</Link></li>
               <li><Link to="/page5" onClick={() => setActivePage('page5')}>הוצאות נסיעה ורכב</Link></li>
               <li><Link to="/page6" onClick={() => setActivePage('page6')}>הוצאות פנאי ובילויים</Link></li>
+              <li><Link to="/page7" onClick={() => setActivePage('page7')} className={isAnyFieldFilled() ? '' : 'disabled'}>מה הסיכום הפיננסי לחודש זה?</Link></li>
             </ul>
           </nav>
 
@@ -297,20 +311,22 @@ function App() {
                   <input type="text" name="giftsBonuses" value={income.giftsBonuses} onChange={handleIncomeChange} dir="rtl" />
                   <span>₪</span>
                 </label>
-                <label>הוצאה נוספת כללית:
+              
+                <h5 className="extra-income-title">שכחנו משהו?</h5>
+                <label>הכנסה נוספת כללית:
                   <input type="text" name="otherIncome" value={income.otherIncome} onChange={handleIncomeChange} dir="rtl" />
                   <span>₪</span>
                 </label>
 
-                {extraIncomeFields.map((value, index) => (
+                {/*{extraIncomeFields.map((value, index) => (
                   <label key={index}>הוצאה נוספת כללית:
                     <input type="text" value={value} onChange={(e) => handleExtraIncomeChange(index, e.target.value)} dir="rtl" />
                     <span>₪</span>
                   </label>
                 ))}
 
-                <button onClick={addExtraIncomeRow} className="add-income-button">+ הוסף עוד שורה</button>
-              </div>
+                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף עוד שורה</button>*/}
+                </div>
 
               <div className="total-income">
                 <h3>סה"כ הכנסות: ₪{totalIncome} </h3>
@@ -337,14 +353,14 @@ function App() {
                   <span>₪</span>
                 </label>
 
-                {extraIncomeFields.map((value, index) => (
+                {/*{extraIncomeFields.map((value, index) => (
                   <label key={index}>הוצאה נוספת כללית:
                     <input type="text" value={value} onChange={(e) => handleExtraIncomeChange(index, e.target.value)} dir="rtl" />
                     <span>₪</span>
                   </label>
                 ))}
 
-                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף עוד שורה</button>
+                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף עוד שורה</button>*/}
               </div>
 
               <div className="total-expenses">
@@ -424,15 +440,15 @@ function App() {
                   <span>₪</span>
                 </label>
 
-                {extraIncomeFields.map((value, index) => (
+                {/*{extraIncomeFields.map((value, index) => (
                   <label key={index}>הוצאה נוספת כללית:
                     <input type="text" value={value} onChange={(e) => handleExtraIncomeChange(index, e.target.value)} dir="rtl" />
                     <span>₪</span>
                   </label>
                 ))}
 
-                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף שורה חדשה</button>
-              </div>
+                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף עוד שורה</button>*/}
+                </div>
 
               <div className="total-expenses">
                 <h3>סה"כ הוצאות מגורים: ₪{totalHousingExpenses}</h3>
@@ -534,14 +550,14 @@ function App() {
                   <span>₪</span>
                 </label>
 
-                {extraIncomeFields.map((value, index) => (
+                {/*{extraIncomeFields.map((value, index) => (
                   <label key={index}>הוצאה נוספת כללית:
                     <input type="text" value={value} onChange={(e) => handleExtraIncomeChange(index, e.target.value)} dir="rtl" />
                     <span>₪</span>
                   </label>
                 ))}
 
-                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף שורה חדשה</button>
+                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף עוד שורה</button>*/}
 
               </div>
 
@@ -589,14 +605,14 @@ function App() {
                   <span>₪</span>
                 </label>
 
-                {extraIncomeFields.map((value, index) => (
+                {/*{extraIncomeFields.map((value, index) => (
                   <label key={index}>הוצאה נוספת כללית:
                     <input type="text" value={value} onChange={(e) => handleExtraIncomeChange(index, e.target.value)} dir="rtl" />
                     <span>₪</span>
                   </label>
                 ))}
 
-                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף שורה חדשה</button>
+                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף עוד שורה</button>*/}
 
               </div>
 
@@ -633,14 +649,14 @@ function App() {
                   <span>₪</span>
                 </label>
 
-                {extraIncomeFields.map((value, index) => (
+                {/*{extraIncomeFields.map((value, index) => (
                   <label key={index}>הוצאה נוספת כללית:
                     <input type="text" value={value} onChange={(e) => handleExtraIncomeChange(index, e.target.value)} dir="rtl" />
                     <span>₪</span>
                   </label>
                 ))}
 
-                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף שורה חדשה</button>
+                <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף עוד שורה</button>*/}
 
               </div>
 
@@ -649,6 +665,23 @@ function App() {
               </div>
             </div>
           )}
+          {activePage === 'page7' && (
+            <div>
+              <h2> סיכום פיננסי לחודש זה</h2>
+              <h3>הכנסות והוצאות חושבו – איך זה משפיע על התקציב שלך?</h3>
+              <div className="totals">
+                <div className="total-income">
+                  <h4>סך ההכנסות שלכם</h4>
+                  <p>₪{totalIncome}</p>
+                </div>
+                <div className="total-expenses">
+                  <h4>סך ההוצאות שלכם</h4>
+                  <p>₪{totalExpenses+totalHousingExpenses+totallivingExpenses+totalvehicleExpenses+totalEntertainmentExpenses}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
 
         </div>
       </div>
