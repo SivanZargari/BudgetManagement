@@ -3,6 +3,7 @@ import { googleSignIn, googleSignOut, auth } from './firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import FinancialChart from "./FinancialChart";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -311,7 +312,7 @@ function App() {
                   <input type="text" name="giftsBonuses" value={income.giftsBonuses} onChange={handleIncomeChange} dir="rtl" />
                   <span>₪</span>
                 </label>
-              
+
                 <h5 className="extra-income-title">שכחנו משהו?</h5>
                 <label>הכנסה נוספת כללית:
                   <input type="text" name="otherIncome" value={income.otherIncome} onChange={handleIncomeChange} dir="rtl" />
@@ -326,7 +327,7 @@ function App() {
                 ))}
 
                 <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף עוד שורה</button>*/}
-                </div>
+              </div>
 
               <div className="total-income">
                 <h3>סה"כ הכנסות: ₪{totalIncome} </h3>
@@ -448,7 +449,7 @@ function App() {
                 ))}
 
                 <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף עוד שורה</button>*/}
-                </div>
+              </div>
 
               <div className="total-expenses">
                 <h3>סה"כ הוצאות מגורים: ₪{totalHousingExpenses}</h3>
@@ -657,7 +658,6 @@ function App() {
                 ))}
 
                 <button onClick={addExtraIncomeRow} className="add-expense-button">+ הוסף עוד שורה</button>*/}
-
               </div>
 
               <div className="total-expenses">
@@ -665,6 +665,8 @@ function App() {
               </div>
             </div>
           )}
+
+
           {activePage === 'page7' && (
             <div>
               <h2> סיכום פיננסי לחודש זה</h2>
@@ -676,12 +678,22 @@ function App() {
                 </div>
                 <div className="total-expenses">
                   <h4>סך ההוצאות שלכם</h4>
-                  <p>₪{totalExpenses+totalHousingExpenses+totallivingExpenses+totalvehicleExpenses+totalEntertainmentExpenses}</p>
+                  <p>₪{totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses}</p>
+
+                  <FinancialChart totalIncome={totalIncome} totalExpenses={totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses} />
+
+                  <h3 className={totalIncome > totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses ? 'green-message' :
+                    totalIncome < totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses ? 'red-message' : 'black-message'}>
+                    {totalIncome > totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses
+                      ? "יש לך עודף כספי החודש!👍🏽"
+                      : totalIncome < totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses
+                        ? "שים לב! ההוצאות שלך גבוהות מההכנסות👎🏽"
+                        : "ההכנסות וההוצאות שלך מאוזנות☺️"}
+                  </h3>
                 </div>
               </div>
             </div>
           )}
-
 
         </div>
       </div>
