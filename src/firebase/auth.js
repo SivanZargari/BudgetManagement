@@ -1,5 +1,5 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import app from './firebase'; // ייבוא האפליקציה שיצרנו בקובץ firebase.js
+import { app } from './firebase';
 
 // יצירת מופע auth מתוך האפליקציה של Firebase
 const auth = getAuth(app);

@@ -423,3 +423,24 @@ button.logout:hover {
   color: black;
   font-weight: bold;
 }
+
+/* עיצוב המייל */
+.email-container {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: right;
+  direction: rtl;
+}
+
+.email-container h2 {
+  color: #2c3e50;
+}
+
+.email-container p {
+  margin: 10px 0;
+}
+
+.email-container .highlight {
+  color: #3498db;
+  font-weight: bold;
+}

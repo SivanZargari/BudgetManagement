@@ -4,6 +4,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import FinancialChart from "./FinancialChart";
+import emailjs from "@emailjs/browser";
+import { saveSummaryData } from './firebase/firebase';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -230,6 +232,35 @@ function App() {
     return fields.some(field => field !== ''); // מחזיר true אם יש לפחות שדה אחד עם ערך
   };
 
+
+  const sendEmail = (userEmail, summaryData) => {
+    const templateParams = {
+      to_name: "משתמש יקר",
+      to_email: userEmail,
+      summaryData: summaryData
+    };
+  
+    emailjs
+      .send(
+        "service_ohm9sz3",
+        "template_64418bh",
+        templateParams,
+        "N2fPQZQqbuTQiAg7r"
+      )
+      .then(
+        (response) => {
+          console.log("Email sent successfully!", response.status, response.text);
+          alert("המייל נשלח בהצלחה!");
+  
+          // שמירת הנתונים ב-Firebase
+          saveSummaryData(userEmail, summaryData);  // הוספת הנתונים ב-Firebase
+        },
+        (error) => {
+          console.log("Failed to send email:", error);
+          alert("שגיאה בשליחת המייל, נסה שוב!");
+        }
+      );
+  };
 
   const totalIncome = Object.values(income)
     .reduce((acc, curr) => acc + (parseInt(curr) || 0), 0) + extraIncomeFields.reduce((acc, curr) => acc + (parseInt(curr) || 0), 0);
@@ -690,6 +721,32 @@ function App() {
                         ? "שים לב! ההוצאות שלך גבוהות מההכנסות👎🏽"
                         : "ההכנסות וההוצאות שלך מאוזנות☺️"}
                   </h3>
+
+                  <button onClick={() => {
+                    // יצירת אובייקט עם נתוני הסיכום
+                    const mySummaryData = {
+                      totalIncome,
+                      totalExpenses: totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses,
+                      balanceMessage: totalIncome > totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses
+                        ? "יש לך עודף כספי החודש!👍🏽"
+                        : totalIncome < totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses
+                          ? "שים לב! ההוצאות שלך גבוהות מההכנסות👎🏽"
+                          : "ההכנסות וההוצאות שלך מאוזנות☺️"
+                    };
+
+                    // עיצוב המייל ב-HTML
+                    const emailContent = `
+                      סך ההכנסות שלך: ₪${mySummaryData.totalIncome}
+                     סך ההוצאות שלך: ₪${mySummaryData.totalExpenses}
+                     סטטוס פיננסי: ${mySummaryData.balanceMessage}
+          `;
+
+                    // שליחת המייל
+                    sendEmail(user?.email, emailContent);
+                  }}>
+                    שלח לעצמי במייל
+                  </button>
+
                 </div>
               </div>
             </div>
