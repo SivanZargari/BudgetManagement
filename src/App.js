@@ -6,9 +6,15 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import FinancialChart from "./FinancialChart";
 import emailjs from "@emailjs/browser";
 import { saveSummaryData } from './firebase/firebase';
+import { getSummaryData } from './firebase/firebase'; // ייבוא הפונקציה
+import { getAuth } from "firebase/auth";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [summaries, setSummaries] = useState([]);
+  const [userEmail, setUserEmail] = useState(null); // מייל של המשתמש המחובר
+  const [isDataLoaded, setIsDataLoaded] = useState(false); // אם הנתונים הועלו
+
   const [income, setIncome] = useState({
     salary: '',
     governmentSupport: '',
@@ -105,6 +111,38 @@ function App() {
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getSummaryData(); // שליפת הנתונים מ-Firebase
+      setSummaries(data); // עדכון המצב עם הנתונים
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // אם המשתמש מחובר, קבל את המייל שלו
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      setUserEmail(currentUser.email);
+    } else {
+      setUserEmail(null); // אם לא מחובר, נקה את המייל
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userEmail) {  // אם המשתמש מחובר, סנן את הנתונים לפי המייל שלו
+        const data = await getSummaryData();
+        const userSummary = data.filter(
+          (summary) => summary.userEmail === userEmail // סנן את הנתונים לפי המייל של המשתמש המחובר
+        );
+        setSummaries(userSummary); // עדכן את הסטייט עם הנתונים המסוננים
+      }
+    };
+    fetchData();
+  }, [userEmail]); // ריצה מחדש אם ה-userEmail משתנה
 
   const handleIncomeChange = (event) => {
     if (!user) {
@@ -239,7 +277,7 @@ function App() {
       to_email: userEmail,
       summaryData: summaryData
     };
-  
+
     emailjs
       .send(
         "service_ohm9sz3",
@@ -251,7 +289,7 @@ function App() {
         (response) => {
           console.log("Email sent successfully!", response.status, response.text);
           alert("המייל נשלח בהצלחה!");
-  
+
           // שמירת הנתונים ב-Firebase
           saveSummaryData(userEmail, summaryData);  // הוספת הנתונים ב-Firebase
         },
@@ -260,6 +298,18 @@ function App() {
           alert("שגיאה בשליחת המייל, נסה שוב!");
         }
       );
+  };
+
+  const handleLoadData = async () => {
+    // ודא שהמשתמש מחובר
+    if (userEmail) {
+      const data = await getSummaryData(); // שלוף את כל הנתונים מ-Firebase
+      const userSummary = data.filter(
+        (summary) => summary.userEmail === userEmail // סנן את הנתונים לפי המייל של המשתמש המחובר
+      );
+      setSummaries(userSummary); // עדכן את הסטייט עם הנתונים המסוננים
+      setIsDataLoaded(true);
+    }
   };
 
   const totalIncome = Object.values(income)
@@ -302,6 +352,29 @@ function App() {
           <button onClick={googleSignOut} className="logout">התנתק מחשבון</button>
         ) : (
           <button onClick={googleSignIn}> Google התחבר עם</button>
+        )}
+
+
+        {user && summaries.length > 0 ? (
+          <ul className="summaries-list">
+            {summaries.map((summary) => (
+              <li key={summary.id} className="summary-item">
+                <div className="summary-email">{summary.userEmail}</div>
+                <div className="summary-data">
+                  {typeof summary.summaryData === 'string' ?
+                    summary.summaryData.split('\n').map((line, index) => (
+                      <div key={index} className="summary-line">{line}</div>
+                    )) :
+                    JSON.stringify(summary.summaryData)}
+                </div>
+              </li>
+            ))}
+          </ul>
+
+        ) : user ? (
+          <p>אין נתונים זמינים עבור המשתמש המחובר</p>
+        ) : (
+          <p>עליך להתחבר כדי לראות נתונים קודמים</p>
         )}
 
         <div className="income-section" dir="rtl">
@@ -719,7 +792,7 @@ function App() {
                       ? "יש לך עודף כספי החודש!👍🏽"
                       : totalIncome < totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses
                         ? "שים לב! ההוצאות שלך גבוהות מההכנסות👎🏽"
-                        : "ההכנסות וההוצאות שלך מאוזנות☺️"}
+                        : "ההכנסות וההוצאות שלך מאוזנות ☺️"}
                   </h3>
 
                   <button onClick={() => {
@@ -728,10 +801,10 @@ function App() {
                       totalIncome,
                       totalExpenses: totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses,
                       balanceMessage: totalIncome > totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses
-                        ? "יש לך עודף כספי החודש!👍🏽"
+                        ? "כל הכבוד 👍🏽 - יש לך עודף כספי החודש"
                         : totalIncome < totalExpenses + totalHousingExpenses + totallivingExpenses + totalvehicleExpenses + totalEntertainmentExpenses
-                          ? "שים לב! ההוצאות שלך גבוהות מההכנסות👎🏽"
-                          : "ההכנסות וההוצאות שלך מאוזנות☺️"
+                          ? "שים לב! 👎🏽 - ההוצאות שלך גבוהות מההכנסות"
+                          : " אין כמו איזון ☺️ - ההכנסות וההוצאות מאוזנות "
                     };
 
                     // עיצוב המייל ב-HTML

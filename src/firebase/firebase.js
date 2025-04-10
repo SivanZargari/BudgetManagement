@@ -40,9 +40,14 @@ const saveSummaryData = async (userEmail, summaryData) => {
 // פונקציה לשליפת נתונים מתוך Firestore
 const getSummaryData = async () => {
   const querySnapshot = await getDocs(collection(db, "user_summaries"));
+  const summaries = [];
   querySnapshot.forEach((doc) => {
-    console.log(doc.id, " => ", doc.data());
+    summaries.push({
+      id: doc.id,
+      ...doc.data(),
+    });
   });
+  return summaries; // מחזיר את הנתונים המלאים
 };
 
 // ייצוא הפונקציות והחיבור

@@ -444,3 +444,49 @@ button.logout:hover {
   color: #3498db;
   font-weight: bold;
 }
+
+.summaries-list {
+  list-style-type: none; /* מסיר את התבליטים */
+  padding: 0;
+  margin: 0;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.summary-item {
+  background-color: #f9f9f9; /* רקע בהיר */
+  padding: 15px;
+  border-radius: 8px; /* פינות מעוגלות */
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* צל עדין */
+  transition: transform 0.3s ease-in-out;
+}
+
+.summary-item:hover {
+  transform: translateY(-5px); /* אפקט ריחוף */
+}
+
+.summary-email {
+  font-weight: bold;
+  color: #2c3e50; /* צבע כהה להדגשה */
+  font-size: 1.1rem;
+}
+
+.summary-data {
+  background-color: #ecf0f1; /* רקע בהיר */
+  padding: 10px;
+  border-radius: 6px;
+  font-family: "Courier New", Courier, monospace;
+  color: #34495e;
+  font-size: 0.9rem;
+  white-space: pre-wrap; /* שומר על המעברים בשורות */
+  word-wrap: break-word; /* מאפשר לשבור את הטקסט לשורות */
+}
+
+.summary-line {
+  margin-bottom: 8px; /* מרווח בין השורות */
+  display: block; /* כל שורה מוצגת בתור אלמנט נפרד */
+  line-height: 1.0; /* מרווח בין השורות */
+}
+
+
