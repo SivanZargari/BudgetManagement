@@ -8,12 +8,19 @@ import emailjs from "@emailjs/browser";
 import { saveSummaryData } from './firebase/firebase';
 import { getSummaryData } from './firebase/firebase'; // ייבוא הפונקציה
 import { getAuth } from "firebase/auth";
+import WheelOfTips from './WheelOfTips';
 
 function App() {
   const [user, setUser] = useState(null);
   const [summaries, setSummaries] = useState([]);
   const [userEmail, setUserEmail] = useState(null); // מייל של המשתמש המחובר
   const [isDataLoaded, setIsDataLoaded] = useState(false); // אם הנתונים הועלו
+  const [showWheel, setShowWheel] = useState(false);
+
+  // פונקציה שמבצע את פעולת הלחיצה על הכפתור
+  const handleWheelClick = () => {
+    setShowWheel(true);  // שינוי הסטייט כדי להציג את הגלגל
+  };
 
   const [income, setIncome] = useState({
     salary: '',
@@ -333,20 +340,29 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <h1>ניהול תקציב</h1>
-        <h3>!אל תיתן לכסף לנהל אותך – נהל אותו בעצמך</h3>
+        {showWheel ? (
+          <WheelOfTips />
+        ) : (
+          <div>
+            <h1>ניהול תקציב</h1>
+            <h3>!אל תיתן לכסף לנהל אותך – נהל אותו בעצמך</h3>
 
-        <div className="text-block">
-          <p>
-            ניהול משק בית דומה לניהול עסק – <br />
-            כדי לשמור על איזון כלכלי, חשוב לדעת בדיוק מהן ההכנסות ומהן ההוצאות. <br />
-            שמירה על תקציב מסודר תסייע לכם להימנע מחובות והוצאות מיותרות, <br />
-            ותאפשר לכם לחסוך ולהגשים מטרות וחלומות. <br />
-            כמו בכל תחום בחיים, ברגע שמתחילים לנהל תקציב באופן עקבי, <br />
-            זה הופך להרגל חיובי שמוביל לשקט כלכלי. <br />
-          </p>
-        </div>
-
+            <div className="text-block">
+              <p>
+                ניהול משק בית דומה לניהול עסק – <br />
+                כדי לשמור על איזון כלכלי, חשוב לדעת בדיוק מהן ההכנסות ומהן ההוצאות. <br />
+                שמירה על תקציב מסודר תסייע לכם להימנע מחובות והוצאות מיותרות, <br />
+                ותאפשר לכם לחסוך ולהגשים מטרות וחלומות. <br />
+                כמו בכל תחום בחיים, ברגע שמתחילים לנהל תקציב באופן עקבי, <br />
+                זה הופך להרגל חיובי שמוביל לשקט כלכלי. <br />
+              </p>
+            </div>
+            {/* כפתור שמוביל להצגת גלגל המזל */}
+            <button onClick={handleWheelClick} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            💰🎡גלגל הטיפים לחסכון
+            </button>
+          </div>
+        )}
 
         {user ? (
           <button onClick={googleSignOut} className="logout">התנתק מחשבון</button>
@@ -354,28 +370,32 @@ function App() {
           <button onClick={googleSignIn}> Google התחבר עם</button>
         )}
 
-
         {user && summaries.length > 0 ? (
-          <ul className="summaries-list">
-            {summaries.map((summary) => (
-              <li key={summary.id} className="summary-item">
-                <div className="summary-email">{summary.userEmail}</div>
-                <div className="summary-data">
-                  {typeof summary.summaryData === 'string' ?
-                    summary.summaryData.split('\n').map((line, index) => (
-                      <div key={index} className="summary-line">{line}</div>
-                    )) :
-                    JSON.stringify(summary.summaryData)}
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className="summaries-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+
+            <ul className="summaries-list">
+              {summaries.map((summary) => (
+                <li key={summary.id} className="summary-item">
+                  <div className="summary-email">{summary.userEmail}</div>
+                  <div className="summary-data">
+                    {typeof summary.summaryData === 'string' ?
+                      summary.summaryData.split('\n').map((line, index) => (
+                        <div key={index} className="summary-line">{line}</div>
+                      )) :
+                      JSON.stringify(summary.summaryData)}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
 
         ) : user ? (
           <p>אין נתונים זמינים עבור המשתמש המחובר</p>
         ) : (
           <p>עליך להתחבר כדי לראות נתונים קודמים</p>
         )}
+
+
 
         <div className="income-section" dir="rtl">
           <nav className="navbar">
@@ -823,10 +843,12 @@ function App() {
                 </div>
               </div>
             </div>
+
           )}
 
         </div>
       </div>
+
     </Router>
   );
 }
