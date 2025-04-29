@@ -29,7 +29,7 @@ export default function WheelOfTips() {
 
   return (
     <div className="wheel-container">
-      <h2 className="text-2xl font-bold mb-4"> 💰🎡גלגל הטיפים לחסכון</h2>
+      <h2 className="text-2xl font-bold mb-4"> 💰גלגל הטיפים לחסכון</h2>
       <Wheel
         mustStartSpinning={mustSpin}
         prizeNumber={prizeNumber}
@@ -41,18 +41,22 @@ export default function WheelOfTips() {
           setResult(tips[prizeNumber].option);
         }}
       />
+
       <button
         onClick={handleSpinClick}
-        className="mt-6 px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600"
+        className="spin-button mt-6"
       >
         סובב את הגלגל
       </button>
 
+
       {result && (
-        <div className="mt-6 text-xl font-semibold text-purple-700">
-          הטיפ שלך💡: {result}
-        </div>
-      )}
+  <div className="mt-10 bg-purple-100 border border-purple-300 rounded-xl shadow-md p-4 text-right">
+    <h2 className="text-purple-700 text-xl font-semibold mb-2"> :💡הטיפ שלך</h2>
+    <p className="text-purple-800 text-lg">{result}</p>
+  </div>
+)}
+
     </div>
   );
 }
