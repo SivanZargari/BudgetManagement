@@ -9,6 +9,7 @@ import { saveSummaryData } from './firebase/firebase';
 import { getSummaryData } from './firebase/firebase'; // ייבוא הפונקציה
 import { getAuth } from "firebase/auth";
 import WheelOfTips from './WheelOfTips';
+import MemoryGame from './MemoryGame';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -16,10 +17,17 @@ function App() {
   const [userEmail, setUserEmail] = useState(null); // מייל של המשתמש המחובר
   const [isDataLoaded, setIsDataLoaded] = useState(false); // אם הנתונים הועלו
   const [showWheel, setShowWheel] = useState(false);
+  const [showMemoryGame, setShowMemoryGame] = useState(false);
 
   // פונקציה שמבצע את פעולת הלחיצה על הכפתור
   const handleWheelClick = () => {
     setShowWheel(true);  // שינוי הסטייט כדי להציג את הגלגל
+  };
+
+  // פונקציה שמבצע את פעולת הלחיצה על כפתור המשחק
+  const handleMemoryGameClick = () => {
+    setShowMemoryGame(true); // שינוי הסטייט כדי להציג את המשחק
+    setShowWheel(false); // אם המשחק מוצג, נסיר את גלגל הטיפים
   };
 
   const [income, setIncome] = useState({
@@ -342,6 +350,8 @@ function App() {
       <div className="App">
         {showWheel ? (
           <WheelOfTips />
+        ) : showMemoryGame ? (
+          <MemoryGame />
         ) : (
           <div>
             <h1>ניהול תקציב</h1>
@@ -362,6 +372,10 @@ function App() {
               גלגל הטיפים לחסכון
             </button>
 
+            {/* כפתור שמוביל לעמוד המשחק */}
+            <button onClick={handleMemoryGameClick} className="tip-button">
+              🎲 משחק זיכרון
+            </button>
           </div>
         )}
 

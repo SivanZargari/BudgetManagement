@@ -507,9 +507,6 @@ button.logout:hover {
   font-weight: bold;
   border-radius: 8px;
   transition: transform 0.3s ease, background-color 0.3s ease;
-  position: fixed; /* מיקום קבוע במסך */
-  top: 20px; /* 20 פיקסלים מהחלק העליון של הדף */
-  right: 20px; /* 20 פיקסלים מהצד הימני של הדף */
 }
 
 .tip-button:hover {
