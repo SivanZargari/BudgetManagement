@@ -10,6 +10,8 @@ import { getSummaryData } from './firebase/firebase'; // ייבוא הפונקצ
 import { getAuth } from "firebase/auth";
 import WheelOfTips from './WheelOfTips';
 import MemoryGame from './MemoryGame';
+import PuzzleTips from './PuzzleTips';
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -18,6 +20,7 @@ function App() {
   const [isDataLoaded, setIsDataLoaded] = useState(false); // אם הנתונים הועלו
   const [showWheel, setShowWheel] = useState(false);
   const [showMemoryGame, setShowMemoryGame] = useState(false);
+  const [showPuzzleTips, setShowPuzzleTips] = useState(false);
 
   // פונקציה שמבצע את פעולת הלחיצה על הכפתור
   const handleWheelClick = () => {
@@ -327,6 +330,13 @@ function App() {
     }
   };
 
+  const handlePuzzleTipsClick = () => {
+    setShowPuzzleTips(true);
+    setShowMemoryGame(false);
+    setShowWheel(false);
+  };
+
+
   const totalIncome = Object.values(income)
     .reduce((acc, curr) => acc + (parseInt(curr) || 0), 0) + extraIncomeFields.reduce((acc, curr) => acc + (parseInt(curr) || 0), 0);
 
@@ -352,6 +362,8 @@ function App() {
           <WheelOfTips />
         ) : showMemoryGame ? (
           <MemoryGame />
+        ) : showPuzzleTips ? (
+          <PuzzleTips />
         ) : (
           <div>
             <h1>ניהול תקציב</h1>
@@ -374,8 +386,14 @@ function App() {
 
             {/* כפתור שמוביל לעמוד המשחק */}
             <button onClick={handleMemoryGameClick} className="tip-button">
-              🎲 משחק זיכרון
+              משחק זיכרון
             </button>
+
+            {/* כפתור שמוביל למשחק הטיפים החדש */}
+            <button onClick={handlePuzzleTipsClick} className="tip-button">
+              חידון התקציב
+            </button>
+
           </div>
         )}
 

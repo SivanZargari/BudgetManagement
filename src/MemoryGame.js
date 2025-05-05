@@ -117,7 +117,7 @@ const MemoryGame = () => {
 
 
             <button onClick={startGame} className="restart-button">
-                🔄 התחל מחדש
+                🔄 נסה שוב
             </button>
         </div>
     );
