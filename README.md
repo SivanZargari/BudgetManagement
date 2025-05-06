@@ -10,6 +10,9 @@ A personal web application for managing a monthly budget, featuring:
 - Secure login with Google using Firebase Authentication.
 - Saving historical summaries for logged-in users.
 - A random tips wheel for smart monthly saving.
+- A memory game where users match daily expenses with their monthly savings.
+- A quiz to test users' knowledge on personal finance with educational explanations.
+
 
 The application is designed to provide a simple and accessible solution for managing a monthly budget and tracking financial status.
 
