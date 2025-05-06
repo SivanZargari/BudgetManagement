@@ -11,7 +11,7 @@ import { getAuth } from "firebase/auth";
 import WheelOfTips from './WheelOfTips';
 import MemoryGame from './MemoryGame';
 import PuzzleTips from './PuzzleTips';
-
+import BudgetQuiz from './BudgetQuiz';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -21,6 +21,7 @@ function App() {
   const [showWheel, setShowWheel] = useState(false);
   const [showMemoryGame, setShowMemoryGame] = useState(false);
   const [showPuzzleTips, setShowPuzzleTips] = useState(false);
+  const [showBudgetQuiz, setShowBudgetQuiz] = useState(false);
 
   // פונקציה שמבצע את פעולת הלחיצה על הכפתור
   const handleWheelClick = () => {
@@ -32,6 +33,13 @@ function App() {
     setShowMemoryGame(true); // שינוי הסטייט כדי להציג את המשחק
     setShowWheel(false); // אם המשחק מוצג, נסיר את גלגל הטיפים
   };
+
+  const handleBudgetQuizClick = () => {
+    setShowBudgetQuiz(true);
+    setShowWheel(false);
+    setShowMemoryGame(false);
+    setShowPuzzleTips(false);
+};
 
   const [income, setIncome] = useState({
     salary: '',
@@ -364,6 +372,8 @@ function App() {
           <MemoryGame />
         ) : showPuzzleTips ? (
           <PuzzleTips />
+        ) : showBudgetQuiz ? (
+          <BudgetQuiz />
         ) : (
           <div>
             <h1>ניהול תקציב</h1>
@@ -392,6 +402,11 @@ function App() {
             {/* כפתור שמוביל למשחק הטיפים החדש */}
             <button onClick={handlePuzzleTipsClick} className="tip-button">
               חידון התקציב
+            </button>
+
+            {/* כפתור שמוביל לעמוד ה-BudgetQuiz */}
+            <button onClick={handleBudgetQuizClick} className="tip-button">
+             הערכה כלכלית
             </button>
 
           </div>
