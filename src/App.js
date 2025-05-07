@@ -12,6 +12,9 @@ import WheelOfTips from './WheelOfTips';
 import MemoryGame from './MemoryGame';
 import PuzzleTips from './PuzzleTips';
 import BudgetQuiz from './BudgetQuiz';
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import html2canvas from "html2canvas";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -39,7 +42,7 @@ function App() {
     setShowWheel(false);
     setShowMemoryGame(false);
     setShowPuzzleTips(false);
-};
+  };
 
   const [income, setIncome] = useState({
     salary: '',
@@ -344,6 +347,26 @@ function App() {
     setShowWheel(false);
   };
 
+  const generatePDF = () => {
+    const input = document.getElementById("page7-content");
+    if (!input) {
+      alert("לא נמצא page 7 למסמך PDF ");
+      return;
+    }
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("סיכום פיננסי");
+    });
+  };
+
+
 
   const totalIncome = Object.values(income)
     .reduce((acc, curr) => acc + (parseInt(curr) || 0), 0) + extraIncomeFields.reduce((acc, curr) => acc + (parseInt(curr) || 0), 0);
@@ -406,7 +429,7 @@ function App() {
 
             {/* כפתור שמוביל לעמוד ה-BudgetQuiz */}
             <button onClick={handleBudgetQuizClick} className="tip-button">
-             הערכה כלכלית
+              הערכה כלכלית
             </button>
 
           </div>
@@ -840,7 +863,7 @@ function App() {
 
 
           {activePage === 'page7' && (
-            <div>
+            <div id="page7-content">
               <h2> סיכום פיננסי לחודש זה</h2>
               <h3>הכנסות והוצאות חושבו – איך זה משפיע על התקציב שלך?</h3>
               <div className="totals">
@@ -887,6 +910,8 @@ function App() {
                   }}>
                     שלח לעצמי במייל
                   </button>
+
+                  <button onClick={generatePDF}>ייצוא ל-PDF</button>
 
                 </div>
               </div>
