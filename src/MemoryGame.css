@@ -85,5 +85,89 @@
     background-color: #1565c0;
   }
   
+  /* רספונסיביות למסכים עד 768px */
+@media (max-width: 768px) {
+  .game-container {
+    padding: 15px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(3, 100px);
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .card {
+    width: 100px;
+    height: 100px;
+  }
+
+  .card-front,
+  .card-back {
+    font-size: 16px;
+    border-radius: 8px;
+  }
+
+  .button-container {
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .game-over {
+    font-size: 1.1em;
+    margin-top: 15px;
+  }
+
+  .restart-button {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-top: 15px;
+  }
+  
+  .restart-button:hover {
+    background-color: #1565c0; /* שומר על אותו צבע */
+  }
+}
+
+/* רספונסיביות למסכים קטנים מאוד עד 480px */
+@media (max-width: 480px) {
+  .game-container {
+    padding: 10px;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(2, 90px);
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .card {
+    width: 90px;
+    height: 90px;
+  }
+
+  .card-front,
+  .card-back {
+    font-size: 14px;
+    border-radius: 6px;
+  }
+
+  .button-container {
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .game-over {
+    font-size: 1em;
+    margin-top: 10px;
+  }
+
+  .restart-button {
+    font-size: 13px;
+    padding: 7px 14px;
+    margin-top: 10px;
+  }
+}
+
   
   

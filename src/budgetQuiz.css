@@ -80,3 +80,90 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
   
+  /* רספונסיבי למסכים עד 768px */
+@media (max-width: 768px) {
+  .budget-container {
+    padding: 15px;
+  }
+
+  .budget-container h2 {
+    font-size: 1.5em;
+  }
+
+  .budget-form {
+    max-width: 100%;
+    gap: 15px;
+  }
+
+  .budget-form label {
+    font-size: 14px;
+  }
+
+  .budget-form select {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .submit-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .prediction-result {
+    font-size: 1.1em;
+  }
+
+  .prediction-result span {
+    font-size: 1.2em;
+  }
+
+  .instruction-box {
+    font-size: 1em;
+    padding: 12px 15px;
+    max-width: 100%;
+    margin: 15px auto;
+  }
+}
+
+/* רספונסיבי למסכים עד 480px */
+@media (max-width: 480px) {
+  .budget-container {
+    padding: 10px;
+  }
+
+  .budget-container h2 {
+    font-size: 1.2em;
+  }
+
+  .budget-form {
+    gap: 10px;
+  }
+
+  .budget-form label {
+    font-size: 12px;
+  }
+
+  .budget-form select {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .submit-button {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+
+  .prediction-result {
+    font-size: 1em;
+  }
+
+  .prediction-result span {
+    font-size: 1.1em;
+  }
+
+  .instruction-box {
+    font-size: 0.9em;
+    padding: 10px 12px;
+    margin: 10px auto;
+  }
+}

@@ -589,4 +589,133 @@ button.logout:hover {
 
 
 
+/* עיצוב רספונסיבי לגדלים בינוניים (טאבלטים וסמארטפונים גדולים) */
+@media (max-width: 768px) {
+  .App {
+    padding: 10px;
+  }
+
+  .income-section,
+  .expense-section {
+    width: 90% !important;
+    padding: 20px !important;
+  }
+
+  .income-section h2,
+  .expense-section h2,
+  .text-block h2 {
+    font-size: 1.5rem;
+  }
+
+  .income-inputs,
+  .expense-inputs {
+    width: 100% !important;
+    gap: 15px !important;
+    padding: 5px !important;
+    align-items: stretch !important;
+  }
+
+  .income-inputs label,
+  .expense-inputs label {
+    flex-direction: column !important;
+    text-align: right !important;
+    font-size: 14px;
+  }
+
+  .income-inputs input,
+  .expense-inputs input {
+    font-size: 14px !important;
+    padding: 8px !important;
+  }
+
+  button,
+  .add-income-button,
+  .add-expense-button {
+    width: 100% !important;
+    padding: 15px !important;
+    font-size: 16px !important;
+  }
+
+  .navbar {
+    flex-direction: column !important;
+    padding: 10px !important;
+  }
+
+  .navbar ul {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .navbar a {
+    font-size: 16px !important;
+    padding: 10px !important;
+  }
+
+  .text-block {
+    width: 95% !important;
+    padding: 15px !important;
+  }
+
+  .total-income,
+  .total-expenses {
+    font-size: 1.3rem !important;
+    margin-bottom: 15px !important;
+  }
+
+  .wheel-container {
+    height: auto !important;
+    padding: 20px !important;
+  }
+}
+
+/* עיצוב רספונסיבי למסכים קטנים מאוד (טלפונים קטנים) */
+@media (max-width: 480px) {
+  .income-section,
+  .expense-section,
+  .text-block {
+    width: 98% !important;
+    padding: 10px !important;
+  }
+
+  .income-section h2,
+  .expense-section h2,
+  .text-block h2 {
+    font-size: 1.2rem !important;
+  }
+
+  .income-inputs label,
+  .expense-inputs label {
+    font-size: 12px !important;
+  }
+
+  .income-inputs input,
+  .expense-inputs input {
+    font-size: 12px !important;
+    padding: 6px !important;
+  }
+
+  button,
+  .add-income-button,
+  .add-expense-button {
+    font-size: 14px !important;
+    padding: 12px !important;
+  }
+
+  .navbar a {
+    font-size: 14px !important;
+    padding: 8px !important;
+  }
+
+  .total-income,
+  .total-expenses {
+    font-size: 1.1rem !important;
+  }
+
+  .wheel-container {
+    height: auto !important;
+    padding: 10px !important;
+  }
+}
+
+
 

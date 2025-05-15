@@ -42,3 +42,42 @@
     cursor: not-allowed;
   }
   
+  @media (max-width: 768px) {
+  .puzzle-container {
+    max-width: 90% !important;
+    padding: 1rem !important;
+    font-size: 1rem !important;
+  }
+
+  .options button {
+    width: 80% !important;
+    margin: 8px auto !important;
+    padding: 12px 16px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .result {
+    font-size: 1.1rem !important;
+    margin-top: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .puzzle-container {
+    max-width: 95% !important;
+    padding: 0.8rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .options button {
+    width: 100% !important;
+    margin: 6px auto !important;
+    padding: 10px 12px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .result {
+    font-size: 1rem !important;
+    margin-top: 0.8rem !important;
+  }
+}
